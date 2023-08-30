@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from '../imgs/logo.png';
 import { Link, useNavigate } from "react-router-dom";
 import { BiInfoCircle } from "react-icons/bi"; // Import the icon
-
+import { LoginContext } from "../context/navigation";
 
 function Signin() {
+    const {setuserlogin}=useContext(LoginContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -41,7 +42,10 @@ function Signin() {
                 setError(data.error); // Set the error message
             } else {
                 setError(""); // Clear error message
-                navigate("/profile");
+                console.log(data)
+                localStorage.setItem("jwt", data)
+                setuserlogin(true)
+                navigate("/");
             }
             console.log(data);
         });

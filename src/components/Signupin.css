@@ -72,6 +72,6 @@ input::placeholder {
     color: #999; /* Adjust the color if desired */
 }
 .error-message-popover{
-    font-size: 12px;
+    font-size: 14px;
     color: #737373;
 }
