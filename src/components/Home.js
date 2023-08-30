@@ -1,30 +1,58 @@
-import React from "react";
+import {React, useEffect, useState} from "react";
 import './Home.css'
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+
+    const navigate = useNavigate()
+    const [data, setData] = useState([])
+
+    useEffect(()=> {
+        const token = localStorage.getItem("jwt")
+        if(!token){
+            navigate('/signup')
+        }
+
+        fetch("http://localhost:5000/posts", {
+            method: "get",
+                headers: {
+                    "content-Type": "application/json",
+                    "Authorization": "bearer " + localStorage.getItem("jwt")
+                }
+        }).then(res=> res.json())
+        .then(result => setData(result))
+        .catch(err=> console.log(err))
+    },[])
+
     return(
         <div className="home">
-            <div className="card">
-                <div className="card-header">
-                    <div className="cardpic">
-                        <img src="https://images.pexels.com/photos/17895979/pexels-photo-17895979/free-photo-of-butterfly-on-flower.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""/>
+            {data.map((posts)=>{
+                return (
+                    <>
+                    <div className="card">
+                        <div className="card-header">
+                            <div className="cardpic">
+                                <img src="https://images.pexels.com/photos/17895979/pexels-photo-17895979/free-photo-of-butterfly-on-flower.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""/>
+                            </div>
+                        <h5>{posts.postedBy.name}</h5>
+                        </div>
+                        <div className="cardimage">
+                            <img src={posts.photo} alt=""/>
+                        </div>
+                        <div className="cardcontent">
+                        <span className="material-symbols-outlined">favorite</span>
+                        <p><b>1 Like</b></p>
+                        <p>{posts.body}</p>
+                        </div>
+                        <div className="addcomment">
+                        <span class="material-symbols-outlined">sentiment_very_satisfied</span>
+                        <input type="text" placeholder="add a comment"/>
+                        <button className="commentbtn">Post</button>
+                        </div>
                     </div>
-                <h5>catto</h5>
-                </div>
-                <div className="cardimage">
-                    <img src="https://images.unsplash.com/photo-1531748774806-58179918dba4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt=""/>
-                </div>
-                <div className="cardcontent">
-                <span class="material-symbols-outlined">favorite</span>
-                <p><b>1 Like</b></p>
-                <p>cute catto</p>
-                </div>
-                <div className="addcomment">
-                <span class="material-symbols-outlined">sentiment_very_satisfied</span>
-                <input type="text" placeholder="add a comment"/>
-                <button className="commentbtn">Post</button>
-                </div>
-            </div>
+                    </>
+                )
+            })}
         </div>
     )
 }
