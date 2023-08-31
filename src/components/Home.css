@@ -1,3 +1,6 @@
+.home{
+    width: 100vw;
+}
 .card{
     max-width: 450px;
     height: max-content;
@@ -26,7 +29,6 @@
     position: relative;
     padding-bottom: 75%;
     height: 0;
-    overflow: hidden;
 }
 .cardimage >img {
     width: 100%;
@@ -56,4 +58,17 @@
     color: #B7E1FD;
     cursor: pointer;
     background-color: #fff;
+}
+
+.material-symbols-outlined-red {
+    cursor: pointer;
+    color: red;
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+.material-symbols-outlined {
+    cursor: pointer;
 }

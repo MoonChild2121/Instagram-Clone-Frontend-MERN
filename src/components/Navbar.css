@@ -8,12 +8,13 @@ img{
     justify-content: space-around;
     padding: 2px 5px;
     box-shadow: 2px 5px 5px rgb(198, 187, 187);
-    width: 100%; 
 }
+
 
 .nav-menu{
     list-style: none;
-    display: inline-flex;
+    display: flex;
+    align-items: baseline;
 }
 li{
     padding: 0 15px;
@@ -29,3 +30,21 @@ a{
         font-size: 14px; 
     }
 }
+.logout {
+    border: none;
+    background-color: #5e003f;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout:hover {
+    background-color: #40002b;
+    box-shadow: 0px 0px 4px 0px #40002b;
+    transform: translateY(-5px);
+    
+}
+

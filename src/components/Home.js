@@ -1,6 +1,6 @@
 import {React, useEffect, useState} from "react";
 import './Home.css'
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 function Home() {
 
@@ -24,6 +24,64 @@ function Home() {
         .catch(err=> console.log(err))
     },[])
 
+    const likepost = (postId) => {
+        fetch("http://localhost:5000/like", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                postId: postId
+            })
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            const newdata = data.map((posts)=>{
+                if(posts._id === result._id){
+                    return result
+                }
+                else{
+                    return posts
+                }
+            })
+            setData(newdata)
+        })
+        .catch(error => {
+            console.error("Error liking post:", error);
+        });
+    }
+
+    const dislikepost = (postId) => {
+        fetch("http://localhost:5000/dislike", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                postId: postId
+            })
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            const newdata = data.map((posts)=>{
+                if(posts._id === result._id){
+                    return result
+                }
+                else{
+                    return posts
+                }
+            })
+            setData(newdata)
+        })
+        .catch(error => {
+            console.error("Error disliking post:", error);
+        });
+    }
+
     return(
         <div className="home">
             {data.map((posts)=>{
@@ -40,8 +98,13 @@ function Home() {
                             <img src={posts.photo} alt=""/>
                         </div>
                         <div className="cardcontent">
-                        <span className="material-symbols-outlined">favorite</span>
-                        <p><b>1 Like</b></p>
+                            {
+                                posts.likes.includes(JSON.parse(localStorage.getItem("user"))._id)?
+                                (<span className="material-symbols-outlined material-symbols-outlined-red" onClick={() => dislikepost(posts._id)}>favorite</span>)
+                                :
+                                (<span className="material-symbols-outlined" onClick={() => likepost(posts._id)}>favorite</span>)
+                            }
+                        <p><b>{posts.likes.length} Likes</b></p>
                         <p>{posts.body}</p>
                         </div>
                         <div className="addcomment">

@@ -6,15 +6,17 @@ import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
 import CreatePost from './components/CreatePost';
-import React,{createContext, useState} from 'react';
+import React,{useState} from 'react';
 import { LoginContext } from './context/navigation';
+import Modal from './components/Modal';
 
 function App() {
   const [userlogin, setuserlogin] = useState(false)
+  const [modal, setmodal] = useState(false)
   return (
     <BrowserRouter>
     <div className="App">
-      <LoginContext.Provider value={{setuserlogin}}>
+      <LoginContext.Provider value={{setuserlogin, setmodal}}>
         <Navbar login={userlogin}/>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
@@ -23,9 +25,8 @@ function App() {
         <Route path='/profile' element={<Profile/>}></Route>
         <Route path='/createpost' element={<CreatePost/>}></Route>
       </Routes>
+      {modal && <Modal setmodal={setmodal}></Modal>}
       </LoginContext.Provider>
-      
-      
     </div>
     </BrowserRouter>
   );
