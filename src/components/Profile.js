@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
 import './Profile.css'
+import PostDetails from "./PostDetail";
 
 function Profile() {
 
     const [postpic, setpostpic] = useState([])
+    const [show, setShow] = useState(false)
+    const [posts, setPosts] = useState([])
+
     useEffect(()=> {
         fetch("http://localhost:5000/myposts", {
             headers:{
@@ -18,6 +22,17 @@ function Profile() {
             console.error("Error fetching data:", error);
         });
     },[])
+
+    const togglePost = (posts) => {
+        if(show){
+            setShow(false)
+        }
+        else{
+            setShow(true)
+            setPosts(posts)
+        }
+    }
+
     
 
     return(
@@ -45,9 +60,13 @@ function Profile() {
             />
             <div className="gallery">
                 {postpic.map((pics)=> {
-                    return <img key= {pics._id} src={pics.photo} alt=""/>
+                    return <img key= {pics._id} src={pics.photo} alt=""
+                    onClick={()=> {
+                        togglePost(pics)
+                    }}/>
                 })}
             </div>
+            {show && <PostDetails item = {posts} togglePost={togglePost}/>}
         </div>
     )
 }
