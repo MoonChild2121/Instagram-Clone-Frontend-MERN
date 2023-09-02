@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import './Profile.css'
 import PostDetails from "./PostDetail";
+import ProfilePicture from "./ProfilePicture";
 
 function Profile() {
 
     const [postpic, setpostpic] = useState([])
     const [show, setShow] = useState(false)
     const [posts, setPosts] = useState([])
+    const [changepic, setChangePic] = useState(false)
 
     useEffect(()=> {
         fetch("http://localhost:5000/myposts", {
@@ -33,13 +35,22 @@ function Profile() {
         }
     }
 
-    
+    const changeprofile =() => {
+        if(changepic){
+            setChangePic(false)
+        }
+        else{
+            setChangePic(true)
+        }
+    }
 
     return(
         <div className="profile">
             <div className="profileframe">
              <div className="profilepic">
-                <img src="https://images.pexels.com/photos/17840025/pexels-photo-17840025/free-photo-of-an-orange-with-leaves-on-a-white-plate.jpeg?auto=compress&cs=tinysrgb&w=600" alt="img"/>
+                <img
+                onClick={changeprofile}
+                src="https://images.pexels.com/photos/17840025/pexels-photo-17840025/free-photo-of-an-orange-with-leaves-on-a-white-plate.jpeg?auto=compress&cs=tinysrgb&w=600" alt="img"/>
             </div>
             <div className="profileinfo">
                 <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
@@ -67,6 +78,7 @@ function Profile() {
                 })}
             </div>
             {show && <PostDetails item = {posts} togglePost={togglePost}/>}
+            {changepic && <ProfilePicture changeprofile={changeprofile}/>}
         </div>
     )
 }

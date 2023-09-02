@@ -9,6 +9,7 @@ import CreatePost from './components/CreatePost';
 import React,{useState} from 'react';
 import { LoginContext } from './context/navigation';
 import Modal from './components/Modal';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const [userlogin, setuserlogin] = useState(false)
@@ -22,8 +23,9 @@ function App() {
         <Route path='/' element={<Home/>}></Route>
         <Route path='/signup' element={<Signup/>}></Route>
         <Route path='/signin' element={<Signin/>}></Route>
-        <Route path='/profile' element={<Profile/>}></Route>
+        <Route exact path='/profile' element={<Profile/>}></Route>
         <Route path='/createpost' element={<CreatePost/>}></Route>
+        <Route path='/profile/:id' element={<UserProfile/>}></Route>
       </Routes>
       {modal && <Modal setmodal={setmodal}></Modal>}
       </LoginContext.Provider>

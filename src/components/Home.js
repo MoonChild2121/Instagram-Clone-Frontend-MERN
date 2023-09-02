@@ -1,6 +1,6 @@
 import {React, useEffect, useState} from "react";
 import './Home.css'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
 
@@ -138,7 +138,7 @@ function Home() {
                             <div className="cardpic">
                                 <img src="https://images.pexels.com/photos/17895979/pexels-photo-17895979/free-photo-of-butterfly-on-flower.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""/>
                             </div>
-                        <h5>{posts.postedBy.name}</h5>
+                        <h5><Link to={`./profile/${posts.postedBy._id}`}>{posts.postedBy.name}</Link></h5> 
                         </div>
                         <div className="cardimage">
                             <img src={posts.photo} alt=""/>

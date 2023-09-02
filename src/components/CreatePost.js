@@ -65,7 +65,10 @@ function CreatePost() {
             .finally(() => {
                 setPosting(false); // Reset the posting state regardless of success or failure
             });
-        });
+        })
+        .catch(err =>{
+            console.log(err)
+        })
     };
 
     const [selectedImage, setSelectedImage] = useState(null);
