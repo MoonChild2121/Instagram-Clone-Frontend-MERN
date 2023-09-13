@@ -4,6 +4,9 @@ import { CustomDeleteIcon } from "./CustomDeleteIcon";
 
 
 export default function PostDetails({item, togglePost}){
+
+    var defaultpfp = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
+
     const navigate = useNavigate()
     const removePost = (postId) => {
         if (window.confirm("Do you really want to delete this post ?")) {
@@ -45,7 +48,7 @@ export default function PostDetails({item, togglePost}){
                     <div className="commentdetails">
                         <div className="card-header" style={{borderBottom: "1px solid grey"}}>
                             <div className="cardpic">
-                                <img src="https://images.pexels.com/photos/17895979/pexels-photo-17895979/free-photo-of-butterfly-on-flower.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""/>
+                                <img src={item.postedBy.Photo? item.postedBy.Photo : defaultpfp} alt=""/>
                             </div>
                         <h5>{item.postedBy.name}</h5>
                         <CustomDeleteIcon onClick={() => removePost(item._id)} />

@@ -29,12 +29,40 @@ function Navbar({login}) {
         }
     }
 
+    const statusmobile = () => {
+        const token = localStorage.getItem("jwt");
+        if(token || login){
+            return [
+                <>
+                <Link to='/'><li><span class="material-symbols-outlined">home</span></li></Link>
+                <Link to='/profile'><li><span class="material-symbols-outlined">account_circle</span></li> </Link>
+                <Link to='/createpost'> <li><span class="material-symbols-outlined">add_box</span></li></Link>
+                <Link to={""}>
+                    <li onClick={()=> {setmodal(true)}}><span class="material-symbols-outlined">logout</span></li>
+                </Link>
+                </>
+            ]
+        }
+        else{
+            return[
+                <>
+                <Link to='/signin'><li>Sign in</li></Link>
+                <Link to='/signup'> <li>Sign up</li></Link>
+                </>
+            ]
+        }
+    }
+    
+
 
     return (
         <div className='navbar'>
-            <img src={logo} alt='Instagram'/>
+            <Link to='/'><img src={logo} alt='Instagram' id='instalogo'/></Link>
             <ul className='nav-menu'>
                 {status()}
+            </ul>
+            <ul className='nav-mobile'>
+                {statusmobile()}
             </ul>
         </div>
     )

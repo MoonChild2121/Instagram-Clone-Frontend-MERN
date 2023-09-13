@@ -48,3 +48,23 @@ a{
     
 }
 
+.nav-mobile{
+    display: none;
+}
+
+@media screen and (max-width: 800px){
+    #instalogo{
+        display: none;
+    }
+    .nav-menu{
+        display: none;
+    }
+    .nav-mobile{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin-left: none;
+
+    }
+}

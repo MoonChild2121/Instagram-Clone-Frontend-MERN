@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 
 function UserProfile() {
 
+    var defaultpfp = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
+
     const {id} = useParams() 
     const [user, setUser] = useState("")
     const [posts, setPosts] = useState([])
@@ -66,7 +68,7 @@ function UserProfile() {
         <div className="profile">
             <div className="profileframe">
              <div className="profilepic">
-                <img src="https://images.pexels.com/photos/17840025/pexels-photo-17840025/free-photo-of-an-orange-with-leaves-on-a-white-plate.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""/>
+                <img src={user.Photo? user.Photo: defaultpfp} alt=""/>
             </div>
             <div className="profileinfo" >
                 <div style={{display:'flex', alignItems:"center"}}>

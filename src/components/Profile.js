@@ -5,19 +5,24 @@ import ProfilePicture from "./ProfilePicture";
 
 function Profile() {
 
+    var defaultpfp = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
+
     const [postpic, setpostpic] = useState([])
     const [show, setShow] = useState(false)
     const [posts, setPosts] = useState([])
     const [changepic, setChangePic] = useState(false)
+    const [user, setUser] = useState('')
 
     useEffect(()=> {
-        fetch("http://localhost:5000/myposts", {
+        fetch(`http://localhost:5000/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
             headers:{
                 "Authorization": "bearer " + localStorage.getItem("jwt")
             }
         }).then(res => res.json())
         .then((result)=> {
-            setpostpic(result)
+            console.log(result)
+            setpostpic(result.post)
+            setUser(result.user)
             console.log(postpic)
         })
         .catch(error => {
@@ -48,16 +53,16 @@ function Profile() {
         <div className="profile">
             <div className="profileframe">
              <div className="profilepic">
-                <img
+                <img style={{"cursor": "pointer"}}
                 onClick={changeprofile}
-                src="https://images.pexels.com/photos/17840025/pexels-photo-17840025/free-photo-of-an-orange-with-leaves-on-a-white-plate.jpeg?auto=compress&cs=tinysrgb&w=600" alt="img"/>
+                src={user.Photo? user.Photo: defaultpfp} alt="img"/>
             </div>
             <div className="profileinfo">
                 <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
                 <div className="profilestats">
-                    <p>40 posts</p>
-                    <p>40 followers</p>
-                    <p>40 following</p>
+                    <p>{postpic? postpic.length: "0"} posts</p>
+                    <p>{user.followers? user.followers.length: "0"} followers</p>
+                    <p>{user.following? user.following.length: "0"} following</p>
                 </div>
             </div>   
             </div>

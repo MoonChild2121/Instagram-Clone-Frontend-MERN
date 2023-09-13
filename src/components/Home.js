@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
 
+    var defaultpfp = "https://cdn-icons-png.flaticon.com/128/3177/3177440.png"
+
     const navigate = useNavigate()
     const [data, setData] = useState([])
     const [comment, setComment] = useState("")
@@ -136,7 +138,7 @@ function Home() {
                     <div key={posts._id} className="card">
                         <div className="card-header">
                             <div className="cardpic">
-                                <img src="https://images.pexels.com/photos/17895979/pexels-photo-17895979/free-photo-of-butterfly-on-flower.jpeg?auto=compress&cs=tinysrgb&w=600" alt=""/>
+                                <img src={posts.postedBy.Photo? posts.postedBy.Photo: defaultpfp} alt=""/>
                             </div>
                         <h5><Link to={`./profile/${posts.postedBy._id}`}>{posts.postedBy.name}</Link></h5> 
                         </div>
